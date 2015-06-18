@@ -1,14 +1,15 @@
-#  File R/InitWtMHP.R in package ergm.count, part of the Statnet suite
-#  of packages for network analysis, http://statnet.org .
-#
-#  This software is distributed under the GPL-3 license.  It is free,
-#  open source, and has the attribution requirements (GPL Section 7) at
-#  http://statnet.org/attribution
-#
-#  Copyright 2003-2013 Statnet Commons
-#######################################################################
 InitWtMHP.Poisson <- function(arguments, nw, response) {
   MHproposal <- list(name = "Poisson", inputs=NULL)
+  MHproposal
+}
+
+InitWtMHP.PoissonTNT <- function(arguments, nw, response) {
+  if(! "p0" %in% names(arguments)){
+    arguments$p0 <- 0.2 
+  }else if(!is.numeric(arguments$p0) || length(arguments$p0)!=1 || arguments$p0<0 || arguments$p0 >=1) {
+    stop(paste("Invalid jump-to-0 argument to the TNT Poisson proposal: must be either omited or a single number in the interval [0,1)."))
+  }
+  MHproposal <- list(name = "PoissonTNT", inputs=as.double(arguments$p0))
   MHproposal
 }
 

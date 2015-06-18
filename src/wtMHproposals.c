@@ -1,12 +1,3 @@
-/*  File src/wtMHproposals.c in package ergm.count, part of the Statnet suite
- *  of packages for network analysis, http://statnet.org .
- *
- *  This software is distributed under the GPL-3 license.  It is free,
- *  open source, and has the attribution requirements (GPL Section 7) at
- *  http://statnet.org/attribution
- *
- *  Copyright 2003-2013 Statnet Commons
- */
 #include "wtMHproposals.h"
 
 /* Shorthand. */
@@ -76,6 +67,57 @@ void MH_ZIPoisson(WtMHproposal *MHp, WtNetwork *nwp)  {
     MHp->logratio += (1 + log(Mweight[0]+fudge))*oldwt - (1 + log(oldwt+fudge))*Mweight[0] + log(1-dpois(oldwt,oldwt+fudge,0)) - log(1-dpois(Mweight[0],Mweight[0]+fudge,0)); // Note that (1-p0)s cancel
 }
 
+/*********************
+ void MH_ZIPoisson
+
+ MH algorithm for Poisson-reference ERGM with zero-inflating terms.
+ Ocassionally proposes jumps to 0.
+*********************/
+void MH_PoissonTNT(WtMHproposal *MHp, WtNetwork *nwp)  {  
+  Edge nedges=nwp->nedges;
+  double oldwt;
+  static double comp, odds;
+  static Dyad ndyads;
+  const double fudge = 0.5; // Mostly comes in when proposing from 0.
+  
+  if(MHp->ntoggles == 0) { // Initialize Poisson 
+    MHp->ntoggles=1;
+    comp = MHp->inputs[0];
+    odds = comp/(1-comp);
+    ndyads = DYADCOUNT(nwp->nnodes, nwp->bipartite, nwp->directed_flag);
+    return;
+  }
+
+  if (unif_rand() < comp && nedges > 0) { /* Select a tie at random */
+    WtGetRandEdge(Mtail, Mhead, &oldwt, nwp);
+    Mweight[0] = 0;
+  }else{ /* Select a dyad at random */
+    GetRandDyad(Mtail, Mhead, nwp);
+    oldwt = WtGetEdge(Mtail[0],Mhead[0],nwp);
+    do{
+      Mweight[0] = rpois(oldwt + fudge);    
+    }while(Mweight[0]==oldwt);
+  }
+
+  // Log-probability of a Poisson jump from from to to, given that we didn't stay put:
+#define ldpoisj(from,to) (dpois(to, from+fudge, 1) - log1p(-dpois(from, from+fudge, 0)))
+#define dpoisj(from,to) exp(dpois(to, from+fudge, 1) - log1p(-dpois(from, from+fudge, 0)))
+  
+  if(oldwt==0){
+    MHp->logratio += log(dpoisj(Mweight[0],oldwt)+odds*ndyads/(nedges+1)) - ldpoisj(oldwt,Mweight[0]) + (nedges==0 ? log(1-comp) : 0);
+  }else if(Mweight[0]==0){
+    MHp->logratio += ldpoisj(Mweight[0],oldwt) - log(dpoisj(oldwt,Mweight[0])+odds*ndyads/nedges) - (nedges==1 ? log(1-comp) : 0);
+  }else{
+    MHp->logratio += ldpoisj(Mweight[0],oldwt) - ldpoisj(oldwt,Mweight[0]);
+  }
+  // h(y)
+  MHp->logratio += -lgamma1p(Mweight[0]) - -lgamma1p(oldwt);
+  
+#undef ldpoisj
+#undef dpoisj
+}
+
+  
 /*********************
  void MH_PoissonNonObserved
 
