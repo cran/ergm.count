@@ -1,3 +1,12 @@
+%  File man/ergm.count-package.Rd in package ergm.count, part of the Statnet suite
+%  of packages for network analysis, http://statnet.org .
+%
+%  This software is distributed under the GPL-3 license.  It is free,
+%  open source, and has the attribution requirements (GPL Section 7) at
+%  http://statnet.org/attribution
+%
+%  Copyright 2008-2016 Statnet Commons
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \name{ergm.count-package}
 \alias{ergm.count-package}
 \docType{package}
@@ -45,7 +54,7 @@ A tutorial, support newsgroup, references and links to further resources are pro
 \seealso{\code{\link{ergm-terms}}, \code{\link{ergm-references}}}
 
 \author{
-Pavel N. Krivitsky \email{krivitsky@stat.psu.edu}
+Pavel N. Krivitsky \email{pavel@uow.edu.au}
 }
 \references{
 Handcock MS, Hunter DR, Butts CT, Goodreau SG, Krivitsky PN and Morris M

@@ -1,6 +1,6 @@
 Package: ergm.count
-Version: 3.2.0
-Date: 2015-06-18
+Version: 3.2.2
+Date: 2016-03-29
 Title: Fit, Simulate and Diagnose Exponential-Family Models for
         Networks with Count Edges
 Authors@R: c(
@@ -13,10 +13,10 @@ Description: A set of extensions for the 'ergm' package to fit weighted networks
 License: GPL-3 + file LICENSE
 URL: http://statnet.org
 NeedsCompilation: yes
-Packaged: 2015-06-19 11:10:33 UTC; pavel
+Packaged: 2016-03-29 11:55:31 UTC; pavel
 Author: Pavel N. Krivitsky [aut, cre],
   Mark S. Handcock [ctb],
   David R. Hunter [ctb]
 Maintainer: Pavel N. Krivitsky <pavel@uow.edu.au>
 Repository: CRAN
-Date/Publication: 2015-06-19 13:32:55
+Date/Publication: 2016-03-29 14:51:47
