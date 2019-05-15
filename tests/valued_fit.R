@@ -1,11 +1,11 @@
 #  File tests/valued_fit.R in package ergm.count, part of the Statnet suite
-#  of packages for network analysis, http://statnet.org .
+#  of packages for network analysis, https://statnet.org .
 #
 #  This software is distributed under the GPL-3 license.  It is free,
 #  open source, and has the attribution requirements (GPL Section 7) at
-#  http://statnet.org/attribution
+#  https://statnet.org/attribution
 #
-#  Copyright 2008-2018 Statnet Commons
+#  Copyright 2008-2019 Statnet Commons
 #######################################################################
 library(ergm.count)
 set.seed(0)
@@ -27,4 +27,4 @@ summary(efit)
 true.llk <- sum(dpois(na.omit(c(m)), exp(coef(efit)), log=TRUE)) - sum(dpois(na.omit(c(m)), 1, log=TRUE))
 
 stopifnot(abs(coef(efit)-truth)<0.02)
-stopifnot(abs(true.llk - logLik(efit))<0.2)
+stopifnot(isTRUE(all.equal(true.llk, unclass(logLik(efit)), check.attributes=FALSE, tolerance=0.1)))

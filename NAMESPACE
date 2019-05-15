@@ -1,8 +1,7 @@
 
 useDynLib(ergm.count)
 
-import(network,ergm)
-importFrom(statnet.common,statnetStartupMessage)
+import(statnet.common,network,ergm)
 
 # Export all names that do not begin with a dot.
 exportPattern("^[^\\.]")
