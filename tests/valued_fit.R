@@ -1,12 +1,12 @@
-#  File tests/valued_fit.R in package ergm.count, part of the Statnet suite
-#  of packages for network analysis, https://statnet.org .
+#  File tests/valued_fit.R in package ergm.count, part of the
+#  Statnet suite of packages for network analysis, https://statnet.org .
 #
 #  This software is distributed under the GPL-3 license.  It is free,
 #  open source, and has the attribution requirements (GPL Section 7) at
-#  https://statnet.org/attribution
+#  https://statnet.org/attribution .
 #
-#  Copyright 2008-2019 Statnet Commons
-#######################################################################
+#  Copyright 2008-2021 Statnet Commons
+################################################################################
 library(ergm.count)
 set.seed(0)
 
@@ -26,5 +26,5 @@ efit <- ergm(y ~ sum, response="w", reference=~Poisson, verbose=TRUE, control=co
 summary(efit)
 true.llk <- sum(dpois(na.omit(c(m)), exp(coef(efit)), log=TRUE)) - sum(dpois(na.omit(c(m)), 1, log=TRUE))
 
-stopifnot(abs(coef(efit)-truth)<0.02)
-stopifnot(isTRUE(all.equal(true.llk, unclass(logLik(efit)), check.attributes=FALSE, tolerance=0.1)))
+stopifnot(abs(coef(efit)-truth)/sqrt(vcov(efit, sources="estimation")) < 3)
+stopifnot(abs(true.llk - logLik(efit))/sqrt(attr(logLik(efit),"vcov")) < 3)
