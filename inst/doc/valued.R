@@ -176,14 +176,13 @@ summary(samplk.tot.ergm)
 
 ## ----collapse=TRUE------------------------------------------------------------
 summary(zach~sum+nonzero+nodefactor("leader")+absdiffcat("faction.id")+
-        nodesqrtcovar(TRUE), response="contexts")
+        nodecovar(center=TRUE,transform="sqrt"), response="contexts")
 
 ## ----results="hide", fig.show="hide"------------------------------------------
 zach.pois <- 
   ergm(zach~sum+nonzero+nodefactor("leader")+absdiffcat("faction.id")+
-       nodesqrtcovar(TRUE),
-       response="contexts", reference=~Poisson,
-       control=control.ergm(MCMLE.trustregion=100, MCMLE.maxit=50), verbose=TRUE)
+       nodecovar(center=TRUE,transform="sqrt"),
+       response="contexts", reference=~Poisson, verbose=TRUE, control=snctrl(seed=0))
 mcmc.diagnostics(zach.pois)
 
 ## ----collapse=TRUE------------------------------------------------------------

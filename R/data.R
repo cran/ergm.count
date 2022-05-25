@@ -5,7 +5,7 @@
 #  open source, and has the attribution requirements (GPL Section 7) at
 #  https://statnet.org/attribution .
 #
-#  Copyright 2008-2021 Statnet Commons
+#  Copyright 2008-2022 Statnet Commons
 ################################################################################
 #' Karate club social network of Zachary (1977)
 #'
@@ -70,8 +70,7 @@
 #' # Fit a binomial-reference ERGM.
 #'
 #' zach.fit1 <- ergm(zach~nonzero+sum+nodefactor("role",base=2)+absdiffcat("faction.id"),
-#'                   response="contexts", reference=~Binomial(8),
-#'                   control=control.ergm(MCMLE.trustregion=1000))
+#'                   response="contexts", reference=~Binomial(8))
 #'
 #' mcmc.diagnostics(zach.fit1)
 #'
@@ -81,7 +80,6 @@
 #' # This is much slower.
 #' zach.fit2 <- ergm(zach~nonzero+sum+nodefactor("role",base=2)+transitiveties,
 #'                   response="contexts", reference=~Binomial(8),
-#'                   control=control.ergm(MCMLE.trustregion=1000),
 #'                   eval.loglik=FALSE)
 #'
 #' mcmc.diagnostics(zach.fit2)

@@ -5,7 +5,7 @@
 %  open source, and has the attribution requirements (GPL Section 7) at
 %  https://statnet.org/attribution .
 %
-%  Copyright 2008-2021 Statnet Commons
+%  Copyright 2008-2022 Statnet Commons
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \name{NEWS}
 \title{NEWS file for the \code{\link[=ergm.count-package]{ergm.count}} package}
@@ -64,9 +64,58 @@
 
 %% }
 
+
+\section{Changes in version 4.1.1}{
+
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item{
+        Default proposals for \code{\link[=Binomial-ergmReference]{Binomial}}, \code{\link[=Poisson-ergmReference]{Poisson}}, \code{\link[=Geometric-ergmReference]{Geometric}}, and also \code{\link[=DiscUnif-ergmReference]{DiscUnif}} now implement the full DyadGen API for arbitrary dyad-level constraint combinations and TNT proposal weighting.
+      }
+    }
+  }
+
+
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item{
+        Vignette's run time is now more predictable.
+      }
+      \item{
+        Miscellaneous documentation fixes.
+      }
+    }
+  }
+
+
+  \subsection{OTHER USER-VISIBLE CHANGES}{
+    \itemize{
+      \item{
+        Term and termalike documentation has been ported to the new documentation system.
+      }
+      \item{
+        Package tests now use \pkg{testthat}.
+      }
+      \item{
+        Proposals \code{Poisson}, \code{PoissonTNT}, \code{PoissonNonObserved}, \code{Geometric}, \code{GeometricTNT}, \code{Binomial}, and \code{BinomialTNT} have been removed in favour of the more universal \code{\link[=Disc-ergmProposal]{Disc}} and \code{\link[=DiscTNT-ergmProposal]{DiscTNT}} for random and TNT weights.
+      }
+    }
+  }
+}
+
+
 \section{Changes in version 4.0.2}{
 
   \subsection{NEW FEATURES}{
+    \itemize{
+      \item{
+        A vignette demonstrating the package's functionality has been added.
+      }
+    }
+  }
+
+  
+  \subsection{BUG FIXES}{
     \itemize{
       \item{
         Package now uses the \code{\link[ergm:ergm-package]{ergm}} 4.0 term API, which should result in a nontrivial speedup.
