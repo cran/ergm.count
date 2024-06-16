@@ -31,14 +31,14 @@ samplk.tot.el <- as.matrix(samplk.tot, attrname="nominations",
 samplk.tot.el[1:5,]
 # and an initial empty network.
 samplk.tot2 <- samplk1 # Copy samplk1
-delete.edges(samplk.tot2, seq_along(samplk.tot2$mel)) # Empty it out
+samplk.tot2[,] <- 0 # Empty it out
 samplk.tot2  #We could also have used network.initialize(18)
 
 samplk.tot2[samplk.tot.el[,1:2], names.eval="nominations", add.edges=TRUE] <- 
   samplk.tot.el[,3]
 as.matrix(samplk.tot2,attrname="nominations")[1:5,1:5]
 
-## ---- collapse=TRUE-----------------------------------------------------------
+## ----collapse=TRUE------------------------------------------------------------
 par(mar=rep(0,4))
 samplk.ecol <- 
   matrix(gray(1 - (as.matrix(samplk.tot, attrname="nominations")/3)),
@@ -46,7 +46,7 @@ samplk.ecol <-
 plot(samplk.tot, edge.col=samplk.ecol, usecurve=TRUE, edge.curve=0.0001, 
      displaylabels=TRUE, vertex.col=as.factor(samplk.tot%v%"group"))
 
-## ---- collapse=TRUE-----------------------------------------------------------
+## ----collapse=TRUE------------------------------------------------------------
 par(mar=rep(0,4))
 valmat<-as.matrix(samplk.tot,attrname="nominations") #Pull the edge values
 samplk.ecol <- 
@@ -129,7 +129,7 @@ mean(sim.geo0)
 plot(c(sim.geo0),xlab="MCMC iteration",ylab="Value of the tie")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  help("ergm-terms")
+#  ?ergmTerm
 
 ## ----results="hide", fig.show="hide"------------------------------------------
 samplk.tot.nm <- 
